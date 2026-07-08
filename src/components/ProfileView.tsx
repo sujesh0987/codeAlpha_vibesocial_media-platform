@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { 
+  db, 
+  handleFirestoreError, 
+  OperationType,
   doc, 
   getDoc, 
   setDoc, 
@@ -13,8 +16,7 @@ import {
   onSnapshot, 
   getDocs,
   serverTimestamp
-} from 'firebase/firestore';
-import { db, handleFirestoreError, OperationType } from '../firebase';
+} from '../firebase';
 import { UserProfile, Post } from '../types';
 import { motion, AnimatePresence } from 'motion/react';
 import { 

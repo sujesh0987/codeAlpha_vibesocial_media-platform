@@ -1,6 +1,5 @@
 import React from 'react';
-import { signOut } from 'firebase/auth';
-import { auth } from '../firebase';
+import { auth, signOut } from '../firebase';
 import { UserProfile } from '../types';
 import { Home, Compass, User, LogOut, Sparkles, MessageCircle } from 'lucide-react';
 

@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
-import { auth, db } from './firebase';
+import { auth, db, onAuthStateChanged, doc, getDoc } from './firebase';
 import { UserProfile, Post } from './types';
 import Login from './components/Login';
 import Navbar from './components/Navbar';

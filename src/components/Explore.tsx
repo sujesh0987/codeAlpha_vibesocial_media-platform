@@ -1,6 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { collection, onSnapshot, query, doc, setDoc, deleteDoc, updateDoc, increment, limit, serverTimestamp } from 'firebase/firestore';
-import { db, handleFirestoreError, OperationType } from '../firebase';
+import { 
+  db, 
+  handleFirestoreError, 
+  OperationType,
+  collection, 
+  onSnapshot, 
+  query, 
+  doc, 
+  setDoc, 
+  deleteDoc, 
+  updateDoc, 
+  increment, 
+  limit, 
+  serverTimestamp 
+} from '../firebase';
 import { UserProfile } from '../types';
 import { motion } from 'motion/react';
 import { Users, UserCheck, UserPlus, Sparkles, MessageCircle, Heart } from 'lucide-react';

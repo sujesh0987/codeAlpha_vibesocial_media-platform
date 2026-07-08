@@ -1,7 +1,20 @@
 import React, { useState } from 'react';
-import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { doc, getDoc, setDoc, collection, query, where, getDocs, serverTimestamp } from 'firebase/firestore';
-import { auth, db, handleFirestoreError, OperationType } from '../firebase';
+import { 
+  auth, 
+  db, 
+  handleFirestoreError, 
+  OperationType,
+  signInWithPopup, 
+  GoogleAuthProvider,
+  doc, 
+  getDoc, 
+  setDoc, 
+  collection, 
+  query, 
+  where, 
+  getDocs, 
+  serverTimestamp 
+} from '../firebase';
 import { motion } from 'motion/react';
 import { LogIn, Sparkles, User, FileText, Camera, ArrowRight, Loader2, Upload, X, Image } from 'lucide-react';
 
