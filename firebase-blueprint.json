@@ -1,0 +1,97 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User profile document containing basic details, stats, and settings.",
+      "type": "object",
+      "properties": {
+        "username": { "type": "string" },
+        "email": { "type": "string" },
+        "bio": { "type": "string" },
+        "profilePic": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "followingCount": { "type": "integer" },
+        "followersCount": { "type": "integer" }
+      },
+      "required": ["username", "email", "createdAt"]
+    },
+    "Post": {
+      "title": "Social Post",
+      "description": "A post containing text and an optional image.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "authorName": { "type": "string" },
+        "authorPic": { "type": "string" },
+        "content": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "likesCount": { "type": "integer" },
+        "commentsCount": { "type": "integer" }
+      },
+      "required": ["userId", "content", "createdAt"]
+    },
+    "Comment": {
+      "title": "Post Comment",
+      "description": "A comment left on a social post.",
+      "type": "object",
+      "properties": {
+        "postId": { "type": "string" },
+        "userId": { "type": "string" },
+        "authorName": { "type": "string" },
+        "authorPic": { "type": "string" },
+        "content": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["postId", "userId", "content", "createdAt"]
+    },
+    "Like": {
+      "title": "Post Like",
+      "description": "A like toggle indicator representing a user liking a post.",
+      "type": "object",
+      "properties": {
+        "postId": { "type": "string" },
+        "userId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["postId", "userId", "createdAt"]
+    },
+    "Follow": {
+      "title": "Follow Relationship",
+      "description": "A relationship indicating follower and following user IDs.",
+      "type": "object",
+      "properties": {
+        "followerId": { "type": "string" },
+        "followingId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["followerId", "followingId", "createdAt"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "User profiles database."
+    },
+    "users/{userId}/following/{followingId}": {
+      "schema": { "$ref": "#/entities/Follow" },
+      "description": "Who this user is following."
+    },
+    "users/{userId}/followers/{followerId}": {
+      "schema": { "$ref": "#/entities/Follow" },
+      "description": "Who is following this user."
+    },
+    "posts/{postId}": {
+      "schema": { "$ref": "#/entities/Post" },
+      "description": "Feed of posts from users."
+    },
+    "posts/{postId}/comments/{commentId}": {
+      "schema": { "$ref": "#/entities/Comment" },
+      "description": "Comments on a particular post."
+    },
+    "posts/{postId}/likes/{userId}": {
+      "schema": { "$ref": "#/entities/Like" },
+      "description": "Users who liked a post."
+    }
+  }
+}

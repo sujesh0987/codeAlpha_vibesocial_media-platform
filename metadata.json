@@ -1,0 +1,6 @@
+{
+  "name": "Social Media Web App",
+  "description": "A mini social media application featuring user profiles, dynamic posts with image URLs, interactive likes, inline comment threads, and real-time user-follow mechanisms.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

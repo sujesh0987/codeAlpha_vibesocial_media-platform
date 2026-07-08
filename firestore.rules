@@ -1,0 +1,65 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    // User Profile Rules
+    match /users/{userId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && (isOwner(userId) || userId.matches('^seed_user_.*'));
+      allow update: if isSignedIn() && (
+        isOwner(userId) || 
+        userId.matches('^seed_user_.*') || 
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['followersCount'])
+      );
+      
+      // Following subcollection
+      match /following/{followingId} {
+        allow read, write: if isSignedIn();
+      }
+
+      // Followers subcollection
+      match /followers/{followerId} {
+        allow read, write: if isSignedIn();
+      }
+    }
+
+    // Post Rules
+    match /posts/{postId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn();
+      allow update: if isSignedIn() && (
+        resource.data.userId == request.auth.uid || 
+        resource.data.userId.matches('^seed_user_.*') || 
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likesCount', 'commentsCount'])
+      );
+      allow delete: if isSignedIn() && (
+        resource.data.userId == request.auth.uid || 
+        resource.data.userId.matches('^seed_user_.*')
+      );
+
+      // Comments subcollection
+      match /comments/{commentId} {
+        allow read, write: if isSignedIn();
+      }
+
+      // Likes subcollection
+      match /likes/{userId} {
+        allow read, write: if isSignedIn();
+      }
+    }
+  }
+}
